@@ -1,0 +1,20 @@
+# configs/evaluation/ruler_config.yaml
+evaluation:
+  ruler:
+    sequence_lengths: [4096, 8192, 16384, 32768]
+    num_needles: [1, 2, 3, 5, 8]
+    distractor_densities: [0.5, 0.7, 0.8, 0.9]
+    needle_types: ["word", "number", "uuid", "phrase"]
+    batch_size: 8
+    num_examples: 500
+    
+  infinibench:
+    sequence_length: 131072
+    tasks: ["en.sum", "en.qa", "en.mc", "en.dia", "zh.qa", "code.debug", "code.run"]
+    batch_size: 1
+    
+  needle_haystack:
+    sequence_lengths: [8192, 16384, 32768, 65536]
+    needle_positions: ["beginning", "middle", "end", "distributed"]
+    distractor_similarities: ["low", "medium", "high"]
+    num_examples: 1000

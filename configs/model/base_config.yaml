@@ -1,0 +1,41 @@
+# configs/model/base_config.yaml
+model:
+  name: "PrincipledMarkovianTransformer"
+  d_model: 768
+  num_layers: 12
+  num_heads: 12
+  
+  # Multi-Expert Transition Module
+  metm:
+    num_experts: 4
+    expert_specialization:
+      expert_0: {min_range: 1, max_range: 3}    # Short-range
+      expert_1: {min_range: 4, max_range: 8}    # Medium-range
+      expert_2: {min_range: 9, max_range: 16}   # Long-range
+      expert_3: {min_range: 17, max_range: 64}  # Global
+    context_window: 5
+    expert_dropout: 0.1
+    
+  # Adaptive Router
+  router:
+    routing_dimension: 384  # d_model // 2
+    top_k: 2
+    routing_dropout: 0.1
+    load_balance_weight: 0.01
+    
+  # Principled Fusion
+  fusion:
+    num_layers: 3
+    conflict_detection: true
+    fusion_dropout: 0.1
+    
+  # Self-Attention
+  attention:
+    attention_dropout: 0.1
+    use_flash_attention: true
+    max_sequence_length: 32768
+    
+  # General
+  hidden_dropout: 0.1
+  layer_norm_eps: 1e-6
+  initializer_range: 0.02
